@@ -1,0 +1,17 @@
+{
+  "top": "SystolicArray_GEMM_4x4",
+  "task_order": [
+    "SystolicArray_GEMM_4x4",
+    "ArrayController",
+    "InputBufferA",
+    "InputBufferB",
+    "OutputAccumulatorC",
+    "PE_Array_4x4",
+    "ProcessingElement",
+    "MemoryInterface",
+    "ClockResetUnit",
+    "PerformanceMonitor"
+  ],
+  "count": 10,
+  "sketch_dir": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch"
+}

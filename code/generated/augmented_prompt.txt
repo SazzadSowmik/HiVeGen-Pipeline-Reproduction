@@ -1,0 +1,39 @@
+Top module (Hier 0): SystolicArray_GEMM_4x4  
+Description:  
+Implements a 4×4 systolic array accelerator for General Matrix Multiplication (GEMM) using int16 precision. The design performs output-stationary accumulation, optimized for low power and balanced latency/area at 150 MHz. It orchestrates data movement, computation, and accumulation across a grid of processing elements (PEs).
+
+Submodule (Hier 1): ArrayController  
+Description:  
+Coordinates dataflow across the systolic array. Manages loop iteration control (M, N, K dimensions), synchronization, and valid-ready handshakes. Ensures proper sequencing of A/B matrix tiles and accumulation timing.
+
+Submodule (Hier 1): InputBufferA  
+Description:  
+Stores and streams matrix A tiles into the array along rows. Implements a line buffer of depth 64 to provide continuous data feeding to the left edge of the PE grid.
+
+Submodule (Hier 1): InputBufferB  
+Description:  
+Stores and streams matrix B tiles into the array along columns. Uses a 64-depth line buffer to feed data to the top edge of the PE grid, synchronized with A’s flow.
+
+Submodule (Hier 1): OutputAccumulatorC  
+Description:  
+Holds partial and final accumulation results for matrix C. Each element accumulates over the K dimension with depth 2, supporting output-stationary reuse and write-back to memory.
+
+Submodule (Hier 1): PE_Array_4x4  
+Description:  
+A 4×4 mesh of processing elements performing multiply-accumulate (MAC) operations. Each PE receives streamed A and B operands, multiplies them, and accumulates results locally before passing partial sums to neighboring PEs.
+
+Submodule (Hier 2): ProcessingElement (PE)  
+Description:  
+Performs int16×int16 multiplication and accumulation with a single-cycle pipeline. Supports output-stationary dataflow—holding partial sums locally while propagating operands horizontally and vertically.
+
+Submodule (Hier 1): MemoryInterface  
+Description:  
+Handles external memory transactions for A, B, and C matrices. Converts array-level valid-ready signals into memory read/write requests within the 12.8 Gbps bandwidth constraint.
+
+Submodule (Hier 1): ClockResetUnit  
+Description:  
+Generates and distributes clock and reset signals across the array. Ensures synchronous operation at up to 300 MHz, tuned for 150 MHz nominal frequency.
+
+Submodule (Hier 1): PerformanceMonitor  
+Description:  
+Tracks utilization, latency, and power metrics. Provides feedback for tuning frequency and resource usage within DSP and BRAM budgets.

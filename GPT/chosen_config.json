@@ -1,0 +1,28 @@
+{
+  "template": "systolic_array",
+  "kernel_class": "gemm",
+  "chosen_config": {
+    "rows": 4,
+    "cols": 4,
+    "k_tile": 64,
+    "bitwidth": "int16",
+    "stationarity": "output",
+    "a_linebuf_depth": 64,
+    "b_linebuf_depth": 64,
+    "c_accum_depth": 2,
+    "pe_pipeline_depth": 1,
+    "edge_handshake": "valid-ready",
+    "_est_ppa": {
+      "latency_cycles": 70,
+      "dsp": 16,
+      "bram": 4,
+      "est_fmax_mhz": 200
+    }
+  },
+  "est_ppa": {
+    "latency_cycles": 70,
+    "dsp": 16,
+    "bram": 4,
+    "est_fmax_mhz": 200
+  }
+}

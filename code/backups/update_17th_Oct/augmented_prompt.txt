@@ -1,0 +1,55 @@
+Top module (Hier 0): SystolicArray_GEMM_4x4  
+Description:  
+Implements a 4×4 systolic array accelerator for General Matrix Multiplication (GEMM) using
+ int16 precision.
+ The design performs output-stationary accumulation, 
+ optimized for low power and balanced latency–area trade-offs.
+  It orchestrates data movement, computation, and 
+  accumulation across a grid of Processing Elements (PEs).
+
+Submodule (Hier 1): ArrayController  
+Description:  
+Manages global control of the systolic array, including sequencing of
+ matrix tiles, synchronization of data streams,
+ and coordination of valid-ready handshakes. It ensures correct 
+ timing and flow of A, B, and C matrices through the array.
+
+Submodule (Hier 1): InputBuffer_A  
+Description:  
+Stores and streams matrix A tiles into the array along rows.
+ Implements a line buffer of depth 64 to feed A operands to each PE row in a pipelined fashion.
+
+Submodule (Hier 1): InputBuffer_B  
+Description:  
+Stores and streams matrix B tiles into the array along columns.
+ Uses a 64-depth line buffer to deliver B operands to each PE column
+  while maintaining data reuse across the K dimension.
+
+Submodule (Hier 1): OutputAccumulator_C  
+Description:  
+Holds partial sums for the output-stationary accumulation mode. Each PE writes 
+intermediate results to this buffer, which has a depth of 2 to support pipelined
+ accumulation and final write-back to memory.
+
+Submodule (Hier 1): PE_Array_4x4  
+Description:  
+A 4×4 grid of Processing Elements interconnected in a systolic fashion. Each PE performs
+ multiply-accumulate (MAC) operations on int16 operands,
+  propagating partial results across rows and columns.
+
+Submodule (Hier 2): ProcessingElement (PE)  
+Description:  
+Performs the core MAC operation: multiplies inputs from A and B streams and accumulates
+ results locally. Each PE includes a 1-stage pipeline for the multiplier and adder,
+  supporting output-stationary dataflow and valid-ready handshake signaling.
+
+Submodule (Hier 1): MemoryInterface  
+Description:  
+Handles external memory transactions for matrices A, B, and C. 
+Manages bandwidth up to 12.8 Gbps and ensures data alignment
+ with the systolic array’s streaming schedule.
+
+Submodule (Hier 1): ClockResetUnit  
+Description:  
+Generates and distributes the 200 MHz system clock and reset signals to all
+ submodules, ensuring synchronous operation across the array and buffers.

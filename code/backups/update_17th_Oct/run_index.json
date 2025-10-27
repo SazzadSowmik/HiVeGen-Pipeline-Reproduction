@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-10-16T09:08:25.325128Z",
+  "user_prompt": "Define a Systolic Array that supports GEMM with a scale of 4\u00d74.",
+  "config_template": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/inputs/systolic_array_template.json",
+  "application": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/inputs/kernel_gemm.c",
+  "dfg_json": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/kernel_dfg.json",
+  "system_prompt": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/system_prompt.txt",
+  "configuration": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/configuration.json",
+  "log_file": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/logs/run-20251016-050819.log"
+}

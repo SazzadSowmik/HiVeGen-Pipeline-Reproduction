@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "template": "systolic_array",
+  "mode": "llvm",
+  "kernel_class": "gemm",
+  "params": {
+    "M": 4,
+    "N": 4,
+    "K": 4,
+    "precision": "int16"
+  },
+  "knobs": {
+    "rows": 4,
+    "cols": 4,
+    "k_tile": 32,
+    "bitwidth": "int16",
+    "stationarity": "output",
+    "a_linebuf_depth": 64,
+    "b_linebuf_depth": 64,
+    "c_accum_depth": 2,
+    "pe_pipeline_depth": 1,
+    "edge_handshake": "valid-ready"
+  },
+  "constraints": {
+    "dsp_budget": 256,
+    "bram_budget": 128,
+    "lut_budget": null,
+    "ff_budget": null,
+    "mem_bw_gbps_max": 12.8,
+    "clock_mhz_max": 300
+  },
+  "tech_profile": {
+    "dsp_per_mul": {
+      "int8": 0.25,
+      "int16": 1.0,
+      "fp16": 1.0
+    },
+    "adder_cost_lut": {
+      "int16": 64,
+      "fp16": 96
+    },
+    "bram_word_width": 32
+  },
+  "ppa_goal": {
+    "freq_mhz": 200,
+    "optimize_for": [
+      "latency",
+      "area"
+    ],
+    "power_hint": "low"
+  },
+  "mapping_hints": {
+    "prefer_rows": 4,
+    "prefer_cols": 4,
+    "prefer_stationarity": "output"
+  }
+}

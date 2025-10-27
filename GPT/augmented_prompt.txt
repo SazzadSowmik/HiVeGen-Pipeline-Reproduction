@@ -1,0 +1,60 @@
+Please act as a professional Verilog engineer.
+
+Task
+----
+Define a Systolic Array that supports GEMM with a scale of 4×4.
+
+Kernel (DFG)
+------------
+kernel_class: gemm
+DFG summary: loads A(i,k) & B(k,j), MAC with reduction over k, store C(i,j)
+
+Chosen Template & Knobs
+-----------------------
+template: systolic_array
+rows: 4, cols: 4, k_tile: 64
+bitwidth: int16, stationarity: output
+buffers:
+  A_linebuf_depth: 64
+  B_linebuf_depth: 64
+  C_accum_depth:   2
+pe_pipeline_depth: 1
+edge_handshake:    valid-ready
+
+PPA Goal
+--------
+freq_mhz: 200
+optimize_for: ['latency', 'area']
+power_hint: low
+
+Hierarchy Requirements
+----------------------
+Top (Hier 0): gemm_sa_top
+  - Parameters: M, N, K, K_TILE=64, DATA_W=int16
+  - Ports: clk, rst_n, a_in, b_in, c_out, valid/ready handshakes
+  - Submodules:
+    1) sa_array_4x4: R=4, C=4 grid of PEs
+    2) a_streamer, b_streamer: right/down shift with line buffers
+    3) c_accumulator: output-stationary accumulation & write-back
+    4) ctrl: k-loop control, tile scheduling, valid/ready
+
+PE (Hier 1): pe_mac
+  - Inputs: a_in (DATA_W), b_in (DATA_W), acc_in
+  - Outputs: a_out (east), b_out (south), acc_out
+  - Function: acc_out = acc_in + (a_in * b_in)
+  - Pipeline: 1 stage(s)
+
+Array Interconnect (Hier 1)
+  - Shift A east each cycle; shift B south each cycle; propagate valid.
+  - Flush/fill latency = R + C - 2.
+
+Design Rules
+------------
+- Synthesizable SystemVerilog/Verilog; no latches; nonblocking in sequential logic.
+- II=1 for steady-state k iterations; expose K_TILE as parameter.
+- Provide a basic self-checking testbench for a small M,N,K (e.g., 8×8×8).
+
+Deliverables
+------------
+- RTL files: top, PE, array wiring, streamers, accum, ctrl.
+- Testbench: randomized A,B with golden C for small sizes.

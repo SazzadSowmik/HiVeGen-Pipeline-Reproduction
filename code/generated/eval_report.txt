@@ -1,0 +1,8 @@
+STATUS: PASS
+Errors: []
+Warnings: []
+Suggestions: []
+DFG: /Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/kernel_dfg.json
+Template: /Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/inputs/systolic_array_template.json
+Configuration: /Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/configuration.json
+Notes: Stub evaluator – implement real checks here.

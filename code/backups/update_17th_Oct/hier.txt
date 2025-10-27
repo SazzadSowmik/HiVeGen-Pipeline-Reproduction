@@ -1,0 +1,17 @@
+Top module (Hier 0): SystolicArray_GEMM_4x4 
+ |
+ ├─ Submodule (Hier 1): ArrayController
+ |
+ ├─ Submodule (Hier 1): InputBuffer_A  
+ |
+ ├─ Submodule (Hier 1): InputBuffer_B
+ |
+ ├─ Submodule (Hier 1): OutputAccumulator_C 
+ |
+ ├─ Submodule (Hier 1): PE_Array_4x4 
+ |   |
+ │   └─ Submodule (Hier 2): ProcessingElement (PE)
+ |
+ ├─ Submodule (Hier 1): MemoryInterface
+ |
+ └─ Submodule (Hier 1): ClockResetUnit

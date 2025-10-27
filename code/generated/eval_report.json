@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "warnings": [],
+  "suggestions": [],
+  "ppa_proxy": {},
+  "feasible": {
+    "dsp": true,
+    "bram": true,
+    "bw": true
+  },
+  "inputs": {
+    "dfg": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/kernel_dfg.json",
+    "config_template": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/inputs/systolic_array_template.json",
+    "configuration": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/configuration.json"
+  },
+  "notes": [
+    "Stub evaluator: no design-rule checks performed."
+  ]
+}

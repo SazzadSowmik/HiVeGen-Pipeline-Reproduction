@@ -1,0 +1,99 @@
+{
+  "kernel_class": "gemm",
+  "loops": [
+    {
+      "name": "i",
+      "lb": 0,
+      "ub": "M",
+      "step": 1,
+      "innermost": false
+    },
+    {
+      "name": "j",
+      "lb": 0,
+      "ub": "N",
+      "step": 1,
+      "innermost": false
+    },
+    {
+      "name": "k",
+      "lb": 0,
+      "ub": "K",
+      "step": 1,
+      "innermost": true
+    }
+  ],
+  "dfg": {
+    "nodes": [
+      {
+        "id": "nA",
+        "op": "load",
+        "bw": "16",
+        "tensor": "A",
+        "index": "i*K + k"
+      },
+      {
+        "id": "nB",
+        "op": "load",
+        "bw": "16",
+        "tensor": "B",
+        "index": "k*N + j"
+      },
+      {
+        "id": "nM",
+        "op": "mul",
+        "bw": "32"
+      },
+      {
+        "id": "nAdd",
+        "op": "add",
+        "bw": "32"
+      },
+      {
+        "id": "nPhi",
+        "op": "phi",
+        "bw": "32",
+        "reduction": "k"
+      },
+      {
+        "id": "nC",
+        "op": "store",
+        "bw": "void",
+        "tensor": "C",
+        "index": "i*N + j"
+      }
+    ],
+    "edges": [
+      {
+        "src": "nA",
+        "dst": "nM",
+        "type": "data"
+      },
+      {
+        "src": "nB",
+        "dst": "nM",
+        "type": "data"
+      },
+      {
+        "src": "nM",
+        "dst": "nAdd",
+        "type": "data"
+      },
+      {
+        "src": "nPhi",
+        "dst": "nAdd",
+        "type": "data"
+      },
+      {
+        "src": "nAdd",
+        "dst": "nPhi",
+        "type": "data"
+      },
+      {
+        "src": "nAdd",
+        "dst": "nC",
+        "type": "data"
+      }
+    ]
+  }
+}

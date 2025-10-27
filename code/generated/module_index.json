@@ -1,0 +1,96 @@
+{
+  "top": "SystolicArray_GEMM_4x4",
+  "modules": {
+    "SystolicArray_GEMM_4x4": {
+      "hier_level": 0,
+      "description": "Implements a 4\u00d74 systolic array accelerator for General Matrix Multiplication (GEMM) using int16 precision. The design performs output-stationary accumulation, optimized for low power and balanced latency/area at 150\u202fMHz. It orchestrates data movement, computation, and accumulation across a grid of processing elements (PEs).",
+      "children": [
+        "ArrayController",
+        "InputBufferA",
+        "InputBufferB",
+        "OutputAccumulatorC",
+        "PE_Array_4x4",
+        "MemoryInterface",
+        "ClockResetUnit",
+        "PerformanceMonitor"
+      ],
+      "parent": null,
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/systolic-array-gemm-4x4.sv",
+      "language": "systemverilog"
+    },
+    "ArrayController": {
+      "hier_level": 1,
+      "description": "Coordinates dataflow across the systolic array. Manages loop iteration control (M, N, K dimensions), synchronization, and valid-ready handshakes. Ensures proper sequencing of A/B matrix tiles and accumulation timing.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/array-controller.sv",
+      "language": "systemverilog"
+    },
+    "InputBufferA": {
+      "hier_level": 1,
+      "description": "Stores and streams matrix A tiles into the array along rows. Implements a line buffer of depth 64 to provide continuous data feeding to the left edge of the PE grid.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/input-buffer-a.sv",
+      "language": "systemverilog"
+    },
+    "InputBufferB": {
+      "hier_level": 1,
+      "description": "Stores and streams matrix B tiles into the array along columns. Uses a 64-depth line buffer to feed data to the top edge of the PE grid, synchronized with A\u2019s flow.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/input-buffer-b.sv",
+      "language": "systemverilog"
+    },
+    "OutputAccumulatorC": {
+      "hier_level": 1,
+      "description": "Holds partial and final accumulation results for matrix C. Each element accumulates over the K dimension with depth 2, supporting output-stationary reuse and write-back to memory.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/output-accumulator-c.sv",
+      "language": "systemverilog"
+    },
+    "PE_Array_4x4": {
+      "hier_level": 1,
+      "description": "A 4\u00d74 mesh of processing elements performing multiply-accumulate (MAC) operations. Each PE receives streamed A and B operands, multiplies them, and accumulates results locally before passing partial sums to neighboring PEs.",
+      "children": [
+        "ProcessingElement"
+      ],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/pe-array-4x4.sv",
+      "language": "systemverilog"
+    },
+    "ProcessingElement": {
+      "hier_level": 2,
+      "description": "Performs int16\u00d7int16 multiplication and accumulation with a single-cycle pipeline. Supports output-stationary dataflow\u2014holding partial sums locally while propagating operands horizontally and vertically.",
+      "children": [],
+      "parent": "PE_Array_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/processing-element.sv",
+      "language": "systemverilog"
+    },
+    "MemoryInterface": {
+      "hier_level": 1,
+      "description": "Handles external memory transactions for A, B, and C matrices. Converts array-level valid-ready signals into memory read/write requests within the 12.8\u202fGbps bandwidth constraint.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/memory-interface.sv",
+      "language": "systemverilog"
+    },
+    "ClockResetUnit": {
+      "hier_level": 1,
+      "description": "Generates and distributes clock and reset signals across the array. Ensures synchronous operation at up to 300\u202fMHz, tuned for 150\u202fMHz nominal frequency.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/clock-reset-unit.sv",
+      "language": "systemverilog"
+    },
+    "PerformanceMonitor": {
+      "hier_level": 1,
+      "description": "Tracks utilization, latency, and power metrics. Provides feedback for tuning frequency and resource usage within DSP and BRAM budgets.",
+      "children": [],
+      "parent": "SystolicArray_GEMM_4x4",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/performance-monitor.sv",
+      "language": "systemverilog"
+    }
+  }
+}

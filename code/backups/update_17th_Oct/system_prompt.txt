@@ -1,0 +1,293 @@
+Design: Define a Systolic Array that supports GEMM with a scale of 4×4.
+
+Analyze the gemm Kernel
+
+[Kernel]
+{
+  "kernel_class": "gemm",
+  "dfg": {
+    "kernel": "gemm",
+    "loops": [
+      {
+        "name": "loop",
+        "lb": "0",
+        "ub": "(-1 + (zext i32 %0 to i64))<nsw>",
+        "step": "1",
+        "innermost": false
+      },
+      {
+        "name": "loop",
+        "lb": "0",
+        "ub": "(-1 + (zext i32 %1 to i64))<nsw>",
+        "step": "1",
+        "innermost": false
+      },
+      {
+        "name": "loop",
+        "lb": "0",
+        "ub": "(-1 + (zext i32 %2 to i64))<nsw>",
+        "step": "1",
+        "innermost": true
+      }
+    ],
+    "dfg": {
+      "nodes": [
+        {
+          "id": "n0",
+          "op": "phi",
+          "bw": "64"
+        },
+        {
+          "id": "n1",
+          "op": "mul",
+          "bw": "64"
+        },
+        {
+          "id": "n2",
+          "op": "mul",
+          "bw": "32"
+        },
+        {
+          "id": "n3",
+          "op": "phi",
+          "bw": "64"
+        },
+        {
+          "id": "n4",
+          "op": "add",
+          "bw": "64"
+        },
+        {
+          "id": "n5",
+          "op": "phi",
+          "bw": "32"
+        },
+        {
+          "id": "n6",
+          "op": "store",
+          "bw": "void",
+          "tensor": "C",
+          "index": "{{%5,+,(4 * (zext i32 %1 to i64))<nuw><nsw>}<%16>,+,4}<nw><%26>"
+        },
+        {
+          "id": "n7",
+          "op": "add",
+          "bw": "64"
+        },
+        {
+          "id": "n8",
+          "op": "phi",
+          "bw": "64",
+          "reduction": "k"
+        },
+        {
+          "id": "n9",
+          "op": "phi",
+          "bw": "32"
+        },
+        {
+          "id": "n10",
+          "op": "load",
+          "bw": "32",
+          "tensor": "A",
+          "index": "{((4 * (zext i32 {0,+,%2}<%16> to i64))<nuw><nsw> + %3),+,4}<nw><%38>"
+        },
+        {
+          "id": "n11",
+          "op": "mul",
+          "bw": "64"
+        },
+        {
+          "id": "n12",
+          "op": "load",
+          "bw": "32",
+          "tensor": "B",
+          "index": "{{%4,+,4}<nw><%26>,+,(4 * (zext i32 %1 to i64))<nuw><nsw>}<nuw><%38>"
+        },
+        {
+          "id": "n13",
+          "op": "add",
+          "bw": "64"
+        }
+      ],
+      "edges": [
+        {
+          "src": "n4",
+          "dst": "n0",
+          "type": "data"
+        },
+        {
+          "src": "n0",
+          "dst": "n1",
+          "type": "data"
+        },
+        {
+          "src": "n7",
+          "dst": "n3",
+          "type": "data"
+        },
+        {
+          "src": "n0",
+          "dst": "n4",
+          "type": "data"
+        },
+        {
+          "src": "n5",
+          "dst": "n6",
+          "type": "data"
+        },
+        {
+          "src": "n3",
+          "dst": "n7",
+          "type": "data"
+        },
+        {
+          "src": "n13",
+          "dst": "n8",
+          "type": "data"
+        },
+        {
+          "src": "n8",
+          "dst": "n11",
+          "type": "data"
+        },
+        {
+          "src": "n8",
+          "dst": "n13",
+          "type": "data"
+        }
+      ]
+    }
+  }
+}
+
+to generate configuration based on the following configuration template.
+[DSA Configuration Template]
+{
+  "version": "1.0",
+  "template": "systolic_array",
+  "mode": "llvm",
+  "kernel_class": "gemm",
+  "params": {
+    "M": null,
+    "N": null,
+    "K": null,
+    "precision": "int16"
+  },
+  "knobs": {
+    "rows": {
+      "values": [
+        2,
+        4,
+        8
+      ]
+    },
+    "cols": {
+      "values": [
+        2,
+        4,
+        8
+      ]
+    },
+    "k_tile": {
+      "values": [
+        16,
+        32,
+        64,
+        128
+      ]
+    },
+    "bitwidth": {
+      "values": [
+        "int8",
+        "int16",
+        "fp16"
+      ]
+    },
+    "stationarity": {
+      "values": [
+        "output",
+        "weight",
+        "input"
+      ]
+    },
+    "a_linebuf_depth": {
+      "min": 32,
+      "max": 256,
+      "step": 32
+    },
+    "b_linebuf_depth": {
+      "min": 32,
+      "max": 256,
+      "step": 32
+    },
+    "c_accum_depth": {
+      "values": [
+        1,
+        2,
+        4
+      ]
+    },
+    "pe_pipeline_depth": {
+      "values": [
+        0,
+        1,
+        2
+      ]
+    },
+    "edge_handshake": {
+      "values": [
+        "valid-ready",
+        "simple"
+      ]
+    }
+  },
+  "constraints": {
+    "dsp_budget": 256,
+    "bram_budget": 128,
+    "lut_budget": null,
+    "ff_budget": null,
+    "mem_bw_gbps_max": 12.8,
+    "clock_mhz_max": 300
+  },
+  "tech_profile": {
+    "dsp_per_mul": {
+      "int8": 0.25,
+      "int16": 1.0,
+      "fp16": 1.0
+    },
+    "adder_cost_lut": {
+      "int16": 64,
+      "fp16": 96
+    },
+    "bram_word_width": 32
+  },
+  "ppa_goal": {
+    "freq_mhz": 200,
+    "optimize_for": [
+      "latency",
+      "area"
+    ],
+    "power_hint": "low"
+  },
+  "mapping_hints": {
+    "prefer_rows": 4,
+    "prefer_cols": 4,
+    "prefer_stationarity": "output"
+  }
+}
+
+[Previous PPA]
+none
+
+[PPA Optimization Goal]
+{
+  "freq_mhz": 200,
+  "optimize_for": [
+    "latency",
+    "area"
+  ],
+  "power_hint": "low"
+}
+Respond with ONLY valid JSON for the configuration. Nothing else. You must use the keys from the template.
+Ensure to configure from the provided options parameter values.

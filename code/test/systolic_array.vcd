@@ -1,0 +1,383 @@
+$date
+	Mon Oct 27 04:28:57 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_SystolicArray_GEMM_4x4 $end
+$var wire 32 ! c_out_3_3 [31:0] $end
+$var wire 32 " c_out_3_2 [31:0] $end
+$var wire 32 # c_out_3_1 [31:0] $end
+$var wire 32 $ c_out_3_0 [31:0] $end
+$var wire 32 % c_out_2_3 [31:0] $end
+$var wire 32 & c_out_2_2 [31:0] $end
+$var wire 32 ' c_out_2_1 [31:0] $end
+$var wire 32 ( c_out_2_0 [31:0] $end
+$var wire 32 ) c_out_1_3 [31:0] $end
+$var wire 32 * c_out_1_2 [31:0] $end
+$var wire 32 + c_out_1_1 [31:0] $end
+$var wire 32 , c_out_1_0 [31:0] $end
+$var wire 32 - c_out_0_3 [31:0] $end
+$var wire 32 . c_out_0_2 [31:0] $end
+$var wire 32 / c_out_0_1 [31:0] $end
+$var wire 32 0 c_out_0_0 [31:0] $end
+$var reg 16 1 a_in_0 [15:0] $end
+$var reg 16 2 a_in_1 [15:0] $end
+$var reg 16 3 a_in_2 [15:0] $end
+$var reg 16 4 a_in_3 [15:0] $end
+$var reg 16 5 b_in_0 [15:0] $end
+$var reg 16 6 b_in_1 [15:0] $end
+$var reg 16 7 b_in_2 [15:0] $end
+$var reg 16 8 b_in_3 [15:0] $end
+$var reg 1 9 clk $end
+$var reg 1 : rst_n $end
+$scope module dut $end
+$var wire 16 ; a_in_0 [15:0] $end
+$var wire 16 < a_in_1 [15:0] $end
+$var wire 16 = a_in_2 [15:0] $end
+$var wire 16 > a_in_3 [15:0] $end
+$var wire 16 ? b_in_0 [15:0] $end
+$var wire 16 @ b_in_1 [15:0] $end
+$var wire 16 A b_in_2 [15:0] $end
+$var wire 16 B b_in_3 [15:0] $end
+$var wire 32 C c_out_0_0 [31:0] $end
+$var wire 32 D c_out_0_1 [31:0] $end
+$var wire 32 E c_out_0_2 [31:0] $end
+$var wire 32 F c_out_0_3 [31:0] $end
+$var wire 32 G c_out_1_0 [31:0] $end
+$var wire 32 H c_out_1_1 [31:0] $end
+$var wire 32 I c_out_1_2 [31:0] $end
+$var wire 32 J c_out_1_3 [31:0] $end
+$var wire 32 K c_out_2_0 [31:0] $end
+$var wire 32 L c_out_2_1 [31:0] $end
+$var wire 32 M c_out_2_2 [31:0] $end
+$var wire 32 N c_out_2_3 [31:0] $end
+$var wire 32 O c_out_3_0 [31:0] $end
+$var wire 32 P c_out_3_1 [31:0] $end
+$var wire 32 Q c_out_3_2 [31:0] $end
+$var wire 32 R c_out_3_3 [31:0] $end
+$var wire 1 9 clk $end
+$var wire 1 : rst_n $end
+$var parameter 32 S N $end
+$var integer 32 T i [31:0] $end
+$var integer 32 U j [31:0] $end
+$upscope $end
+$scope task display_results $end
+$upscope $end
+$scope task feed_systolic_data $end
+$upscope $end
+$scope task initialize_matrices $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b100 S
+$end
+#0
+$dumpvars
+b100 U
+b100 T
+b0 R
+b0 Q
+b0 P
+b0 O
+b0 N
+b0 M
+b0 L
+b0 K
+b0 J
+b0 I
+b0 H
+b0 G
+b0 F
+b0 E
+b0 D
+b0 C
+b0 B
+b0 A
+b0 @
+b0 ?
+b0 >
+b0 =
+b0 <
+b0 ;
+0:
+09
+b0 8
+b0 7
+b0 6
+b0 5
+b0 4
+b0 3
+b0 2
+b0 1
+b0 0
+b0 /
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+b0 '
+b0 &
+b0 %
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#5
+b100 U
+b100 T
+19
+#10
+09
+#15
+b100 U
+b100 T
+19
+#20
+09
+#25
+b100 U
+b100 T
+1:
+19
+#30
+09
+#35
+b100 U
+b100 T
+19
+#40
+09
+#45
+b100 U
+b100 T
+b1 5
+b1 ?
+b1 1
+b1 ;
+19
+#50
+09
+#55
+b1 0
+b1 C
+b100 U
+b100 T
+b0 5
+b0 ?
+b101 2
+b101 <
+b10 1
+b10 ;
+19
+#60
+09
+#65
+b101 /
+b101 D
+b100 U
+b100 T
+b1 6
+b1 @
+b1001 3
+b1001 =
+b110 2
+b110 <
+b11 1
+b11 ;
+19
+#70
+09
+#75
+b10 ,
+b10 G
+b1001 .
+b1001 E
+b100 U
+b100 T
+b0 6
+b0 @
+b1101 4
+b1101 >
+b1010 3
+b1010 =
+b111 2
+b111 <
+b100 1
+b100 ;
+19
+#80
+09
+#85
+b110 +
+b110 H
+b1101 -
+b1101 F
+b100 U
+b100 T
+b1 7
+b1 A
+b1110 4
+b1110 >
+b1011 3
+b1011 =
+b1000 2
+b1000 <
+b0 1
+b0 ;
+19
+#90
+09
+#95
+b11 (
+b11 K
+b1010 *
+b1010 I
+b100 U
+b100 T
+b0 7
+b0 A
+b1111 4
+b1111 >
+b1100 3
+b1100 =
+b0 2
+b0 <
+19
+#100
+09
+#105
+b111 '
+b111 L
+b1110 )
+b1110 J
+b100 U
+b100 T
+b1 8
+b1 B
+b10000 4
+b10000 >
+b0 3
+b0 =
+19
+#110
+09
+#115
+b100 $
+b100 O
+b1011 &
+b1011 M
+b100 U
+b100 T
+b0 8
+b0 B
+b0 4
+b0 >
+19
+#120
+09
+#125
+b1000 #
+b1000 P
+b1111 %
+b1111 N
+b100 U
+b100 T
+19
+#130
+09
+#135
+b1100 "
+b1100 Q
+b100 U
+b100 T
+19
+#140
+09
+#145
+b10000 !
+b10000 R
+b100 U
+b100 T
+19
+#150
+09
+#155
+b100 U
+b100 T
+19
+#160
+09
+#165
+b100 U
+b100 T
+19
+#170
+09
+#175
+b100 U
+b100 T
+19
+#180
+09
+#185
+b100 U
+b100 T
+19
+#190
+09
+#195
+b100 U
+b100 T
+19
+#200
+09
+#205
+b100 U
+b100 T
+19
+#210
+09
+#215
+b100 U
+b100 T
+19
+#220
+09
+#225
+b100 U
+b100 T
+19
+#230
+09
+#235
+b100 U
+b100 T
+19
+#240
+09
+#245
+b100 U
+b100 T
+19
+#250
+09
+#255
+b100 U
+b100 T
+19
+#260
+09
+#265
+b100 U
+b100 T
+19
