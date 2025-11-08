@@ -1,0 +1,48 @@
+Top module (Hier 0): UART_8bit  
+Description: The top-level module implements a complete 8-bit Universal Asynchronous Receiver Transmitter (UART). It handles serial data transmission and reception, baud rate generation, and interface control between parallel and serial domains.
+
+---
+
+Submodule (Hier 1): UART_Transmitter  
+Description: Converts 8-bit parallel data into a serial bitstream. Handles start bit, data bits, optional parity, and stop bit generation. Interfaces with the baud rate generator for timing control.
+
+Submodule (Hier 1): UART_Receiver  
+Description: Receives serial data, detects start bit, samples incoming bits at the correct baud rate, reconstructs 8-bit parallel data, and checks for parity and framing errors.
+
+Submodule (Hier 1): Baud_Rate_Generator  
+Description: Generates precise timing pulses (baud ticks) derived from the system clock to synchronize transmitter and receiver bit timing.
+
+Submodule (Hier 1): UART_Controller  
+Description: Manages overall UART operation, including enabling transmitter/receiver, handling status flags (TX ready, RX ready, errors), and coordinating data flow between modules.
+
+---
+
+Submodule (Hier 2): TX_Shift_Register  
+Description: Serializes 8-bit parallel input data into a serial output stream under control of the baud rate clock.
+
+Submodule (Hier 2): TX_State_Machine  
+Description: Controls the transmission sequence—start bit, data bits, parity, and stop bits—based on the transmitter enable and baud tick signals.
+
+Submodule (Hier 2): RX_Shift_Register  
+Description: Deserializes incoming serial data into an 8-bit parallel word, synchronized with the baud rate sampling clock.
+
+Submodule (Hier 2): RX_State_Machine  
+Description: Detects start bit, manages bit sampling timing, and controls data reconstruction and error detection.
+
+Submodule (Hier 2): Parity_Generator_Checker  
+Description: Generates parity bit during transmission and checks parity correctness during reception, supporting even/odd parity modes.
+
+Submodule (Hier 2): Baud_Divider  
+Description: Divides the system clock frequency to produce the baud rate clock enable pulses for both TX and RX modules.
+
+---
+
+Submodule (Hier 3): Bit_Counter  
+Description: Counts transmitted or received bits to signal completion of byte transfer and control state transitions.
+
+Submodule (Hier 3): Clock_Enable_Generator  
+Description: Produces enable pulses at specific intervals derived from the baud divider output to synchronize bit-level operations.
+
+---
+
+This hierarchical structure ensures modularity, allowing independent verification of transmitter, receiver, and timing logic while maintaining a clean top-level UART_8bit integration.

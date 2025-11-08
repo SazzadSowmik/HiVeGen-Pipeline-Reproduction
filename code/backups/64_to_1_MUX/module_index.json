@@ -1,0 +1,63 @@
+{
+  "top": "mux64to1",
+  "modules": {
+    "mux64to1": {
+      "hier_level": 0,
+      "description": "The 64-to-1 multiplexer selects one of 64 input signals based on a 6-bit select line. It forms the top-level integration of smaller multiplexers arranged hierarchically to minimize complexity and improve modularity.",
+      "children": [
+        "mux32to1"
+      ],
+      "parent": null,
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux64to1.sv",
+      "language": "systemverilog"
+    },
+    "mux32to1": {
+      "hier_level": 1,
+      "description": "The 32-to-1 multiplexer selects one of 32 inputs based on a 5-bit select line. Two instances of this module feed into the top-level 64-to-1 multiplexer, reducing the input space from 64 to 2.",
+      "children": [
+        "mux16to1"
+      ],
+      "parent": "mux64to1",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux32to1.sv",
+      "language": "systemverilog"
+    },
+    "mux16to1": {
+      "hier_level": 2,
+      "description": "The 16-to-1 multiplexer selects one of 16 inputs using a 4-bit select line. Two of these modules combine to form one 32-to-1 multiplexer.",
+      "children": [
+        "mux8to1"
+      ],
+      "parent": "mux32to1",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux16to1.sv",
+      "language": "systemverilog"
+    },
+    "mux8to1": {
+      "hier_level": 3,
+      "description": "The 8-to-1 multiplexer selects one of 8 inputs using a 3-bit select line. Two of these modules are used to construct one 16-to-1 multiplexer.",
+      "children": [
+        "mux4to1"
+      ],
+      "parent": "mux16to1",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux8to1.sv",
+      "language": "systemverilog"
+    },
+    "mux4to1": {
+      "hier_level": 4,
+      "description": "The 4-to-1 multiplexer selects one of 4 inputs using a 2-bit select line. Two of these modules are used to build one 8-to-1 multiplexer.",
+      "children": [
+        "mux2to1"
+      ],
+      "parent": "mux8to1",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux4to1.sv",
+      "language": "systemverilog"
+    },
+    "mux2to1": {
+      "hier_level": 5,
+      "description": "The 2-to-1 multiplexer is the fundamental building block that selects between two inputs based on a single select signal. All higher-level multiplexers are recursively built from this basic unit.",
+      "children": [],
+      "parent": "mux4to1",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/mux2to1.sv",
+      "language": "systemverilog"
+    }
+  }
+}

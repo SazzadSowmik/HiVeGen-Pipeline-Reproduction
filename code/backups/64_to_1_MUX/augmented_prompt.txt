@@ -1,0 +1,17 @@
+Top module (Hier 0): mux64to1  
+Description: The 64-to-1 multiplexer selects one of 64 input signals based on a 6-bit select line. It forms the top-level integration of smaller multiplexers arranged hierarchically to minimize complexity and improve modularity.
+
+Submodule (Hier 1): mux32to1  
+Description: The 32-to-1 multiplexer selects one of 32 inputs based on a 5-bit select line. Two instances of this module feed into the top-level 64-to-1 multiplexer, reducing the input space from 64 to 2.
+
+Submodule (Hier 2): mux16to1  
+Description: The 16-to-1 multiplexer selects one of 16 inputs using a 4-bit select line. Two of these modules combine to form one 32-to-1 multiplexer.
+
+Submodule (Hier 3): mux8to1  
+Description: The 8-to-1 multiplexer selects one of 8 inputs using a 3-bit select line. Two of these modules are used to construct one 16-to-1 multiplexer.
+
+Submodule (Hier 4): mux4to1  
+Description: The 4-to-1 multiplexer selects one of 4 inputs using a 2-bit select line. Two of these modules are used to build one 8-to-1 multiplexer.
+
+Submodule (Hier 5): mux2to1  
+Description: The 2-to-1 multiplexer is the fundamental building block that selects between two inputs based on a single select signal. All higher-level multiplexers are recursively built from this basic unit.

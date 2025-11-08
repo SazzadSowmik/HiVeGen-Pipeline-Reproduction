@@ -1,0 +1,135 @@
+{
+  "top": "UART_8bit",
+  "modules": {
+    "UART_8bit": {
+      "hier_level": 0,
+      "description": "Top-level 8-bit UART integrating transmitter, receiver, baud rate generator, and controller.",
+      "children": [
+        "UART_Transmitter",
+        "UART_Receiver",
+        "Baud_Rate_Generator",
+        "UART_Controller"
+      ],
+      "parent": null,
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/uart_8bit.sv",
+      "language": "systemverilog"
+    },
+    "UART_Transmitter": {
+      "hier_level": 1,
+      "description": "Converts 8-bit parallel data into serial bitstream with start, data, parity, and stop bits.",
+      "children": [
+        "TX_Shift_Register",
+        "TX_State_Machine",
+        "Parity_Generator_Checker"
+      ],
+      "parent": "UART_8bit",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/uart_transmitter.sv",
+      "language": "systemverilog"
+    },
+    "UART_Receiver": {
+      "hier_level": 1,
+      "description": "Receives serial data, reconstructs 8-bit parallel data, and checks for parity and framing errors.",
+      "children": [
+        "RX_Shift_Register",
+        "RX_State_Machine",
+        "Parity_Generator_Checker"
+      ],
+      "parent": "UART_8bit",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/uart_receiver.sv",
+      "language": "systemverilog"
+    },
+    "Baud_Rate_Generator": {
+      "hier_level": 1,
+      "description": "Generates baud rate timing pulses derived from system clock.",
+      "children": [
+        "Baud_Divider",
+        "Clock_Enable_Generator"
+      ],
+      "parent": "UART_8bit",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/baud_rate_generator.sv",
+      "language": "systemverilog"
+    },
+    "UART_Controller": {
+      "hier_level": 1,
+      "description": "Manages UART operation, enabling TX/RX and handling status flags and data flow.",
+      "children": [],
+      "parent": "UART_8bit",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/uart_controller.sv",
+      "language": "systemverilog"
+    },
+    "TX_Shift_Register": {
+      "hier_level": 2,
+      "description": "Serializes 8-bit parallel input data into serial output under baud rate control.",
+      "children": [
+        "Bit_Counter"
+      ],
+      "parent": "UART_Transmitter",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/tx_shift_register.sv",
+      "language": "systemverilog"
+    },
+    "TX_State_Machine": {
+      "hier_level": 2,
+      "description": "Controls transmission sequence for start, data, parity, and stop bits.",
+      "children": [
+        "Bit_Counter"
+      ],
+      "parent": "UART_Transmitter",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/tx_state_machine.sv",
+      "language": "systemverilog"
+    },
+    "RX_Shift_Register": {
+      "hier_level": 2,
+      "description": "Deserializes incoming serial data into 8-bit parallel word synchronized with baud rate.",
+      "children": [
+        "Bit_Counter"
+      ],
+      "parent": "UART_Receiver",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/rx_shift_register.sv",
+      "language": "systemverilog"
+    },
+    "RX_State_Machine": {
+      "hier_level": 2,
+      "description": "Detects start bit, manages bit sampling timing, and controls data reconstruction and error detection.",
+      "children": [
+        "Bit_Counter"
+      ],
+      "parent": "UART_Receiver",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/rx_state_machine.sv",
+      "language": "systemverilog"
+    },
+    "Parity_Generator_Checker": {
+      "hier_level": 2,
+      "description": "Generates and checks parity bits for even/odd modes during TX and RX.",
+      "children": [],
+      "parent": "UART_Transmitter",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/parity_generator_checker.sv",
+      "language": "systemverilog"
+    },
+    "Baud_Divider": {
+      "hier_level": 2,
+      "description": "Divides system clock to produce baud rate clock enable pulses.",
+      "children": [
+        "Clock_Enable_Generator"
+      ],
+      "parent": "Baud_Rate_Generator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/baud_divider.sv",
+      "language": "systemverilog"
+    },
+    "Bit_Counter": {
+      "hier_level": 3,
+      "description": "Counts transmitted or received bits to signal byte completion and control state transitions.",
+      "children": [],
+      "parent": "TX_Shift_Register",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/bit_counter.sv",
+      "language": "systemverilog"
+    },
+    "Clock_Enable_Generator": {
+      "hier_level": 3,
+      "description": "Produces enable pulses at intervals derived from baud divider output to synchronize bit-level operations.",
+      "children": [],
+      "parent": "Baud_Rate_Generator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/clock_enable_generator.sv",
+      "language": "systemverilog"
+    }
+  }
+}

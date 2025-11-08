@@ -1,0 +1,20 @@
+{
+  "top": "UART_8bit",
+  "task_order": [
+    "UART_8bit",
+    "UART_Transmitter",
+    "TX_Shift_Register",
+    "Bit_Counter",
+    "TX_State_Machine",
+    "RX_Shift_Register",
+    "RX_State_Machine",
+    "Parity_Generator_Checker",
+    "UART_Receiver",
+    "Baud_Rate_Generator",
+    "Baud_Divider",
+    "Clock_Enable_Generator",
+    "UART_Controller"
+  ],
+  "count": 13,
+  "sketch_dir": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch"
+}

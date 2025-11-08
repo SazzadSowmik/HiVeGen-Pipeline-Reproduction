@@ -56,6 +56,7 @@ def module_generator_llm(
     retrieved_code: Optional[str] = None,             # full code from retriever (optional)
     retrieved_weight: Optional[float] = None,
     extra_notes: Optional[str] = None,
+    previous_generation: Optional[str] = None,        # previous code that had errors (if any)
     design_facts: Optional[Dict[str, str]] = None,    # e.g., {"DATA_W":"16", "stationarity":"output", ...}
     temperature: float = 0.15,
     timeout_secs: int = 60,
@@ -98,6 +99,7 @@ def module_generator_llm(
         " - No testbenches, no includes, no packages outside the module.\n"
         " - Use synthesizable constructs; avoid delays and $display/$dump.\n"
         " - Logic must be COMPLETED correctly.\n"
+        " - If the submodule has children, instantiate them correctly using the provided headers.\n"
         " - Instead of Array slice assignments use the explicit **nested loops**, So that, I don't get syntax error on iVerilog 'Assignment to an entire array or to an array slice is not yet supported'.\n"
     )
 
@@ -108,12 +110,19 @@ def module_generator_llm(
         f"{facts_ctx}"
         f"{headers_ctx}\n"
         f"{ref_ctx}\n"
-        f"{'Fix the Previous Error: ',extra_notes or ''}\n"
-        "Emit the finalized SystemVerilog module now."
+        f"{'Previous code with syntax errors: ```systemverilog\n' + previous_generation + '\n```' if previous_generation else ''}\n"
+        f"{'Fix the Previous Error where I am validating syntax with iVerlog: ',extra_notes or ''}\n"
+        "Emit the finalized SystemVerilog module now.\n"
+        "DO NOT send me same code again if I ask you to fix errors even if It's a direct match from Code library.\n"
+        "- MUST REUSE the module name and port names as specified on the submodule to make the next module in the hierarchy.\n"
+        "- We'll put all the submodule in a single file later. So, just reuse the previous submodule's name without any worries.\n"
     ).strip()
 
     print(f"[LLM Prompt] Generating module '{module_name}' via LLM...")
-    print(f"[LLM Prompt] {user_msg}")
+    print(f"[LLM System Prompt] {system_msg}")
+    print("--------------------------------------------------")
+    print(f"[LLM User Prompt] {user_msg}")
+    print("--------------------------------------------------")
 
     url = f"{OPENAI_BASE_URL}/chat/completions"
     headers = {"Authorization": f"Bearer {OPENAI_API_KEY}", "Content-Type": "application/json"}
