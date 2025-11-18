@@ -64,9 +64,9 @@ def get_inputs():
       config_template_path (Path)
       application_path (Path)
     """
-    user_prompt = "Define a Systolic Array that supports GEMM with a scale of 4×4."
-    config_template_path = DIR_IN / "systolic_array_template.json"   # put your template here
-    application_path     = DIR_IN / "kernel_gemm.c"                  # put your C/C++ kernel here
+    user_prompt = "Define a 'CGRA' that supports 'FFT'."
+    config_template_path = DIR_IN / "configuration_template.json"   # put your template here
+    application_path     = DIR_IN / "kernel.c"                  # put your C/C++ kernel here
     return user_prompt, config_template_path, application_path
 
 
@@ -182,8 +182,9 @@ def build_system_prompt(user_prompt: str, dfg_path: Path, cfg_template_path: Pat
         f"[DSA Configuration Template]\n{json.dumps(cfg_block, indent=2) if isinstance(cfg_block, dict) else cfg_block}\n\n"
         f"[Previous PPA]\n{('none' if isinstance(prev_block, str) else json.dumps(prev_block, indent=2))}\n\n"
         f"[PPA Optimization Goal]\n{json.dumps(ppa_goal, indent=2)}\n"
-        f"Respond with ONLY valid JSON for the configuration. Nothing else. You must use the keys from the template."
-        f"Ensure to configure from the provided options parameter values."
+        f"Respond with ONLY valid JSON for the configuration. Nothing else. You must use the keys from the template.\n"
+        f"The value MUST be optimized based on the Requirements, Specifications and Data Flow Graph.\n"
+        f"Your one of the main task is to Narrow-Down the initial configuration template, So try not to use as it is.\n"
     )
 
 
@@ -710,7 +711,8 @@ def main():
     # 1) Design Space Explorer (phase 1): Kernel extractor -> DFG
     pass_cpp = DIR_HELP / "KernelDFGPass.cpp"  # YOU must place your pass here
     try:
-        dfg_json = run_kernel_extractor(app_path, pass_cpp, DIR_OUT)
+        # dfg_json = run_kernel_extractor(app_path, pass_cpp, DIR_OUT)
+        dfg_json = DIR_OUT / "kernel_dfg.json"  # HARDCODED for demo; replace with above line
     except Exception as e:
         logging.error("Kernel extractor failed: %s", e)
         # Fallback minimal GEMM DFG so pipeline continues

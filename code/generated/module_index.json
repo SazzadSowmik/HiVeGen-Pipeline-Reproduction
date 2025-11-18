@@ -1,0 +1,107 @@
+{
+  "top": "CGRA_FFT_Accelerator",
+  "modules": {
+    "CGRA_FFT_Accelerator": {
+      "hier_level": 0,
+      "description": "A 2\u00d74 coarse-grained reconfigurable array designed to accelerate FFT computations. Integrates arithmetic processing elements, interconnect fabric, local scratchpad memory, and DMA interfaces for high-throughput streaming of complex data.",
+      "children": [
+        "CGRA_Array",
+        "Scratchpad_Memory_System",
+        "DMA_Controller",
+        "Configuration_Controller",
+        "FFT_Dataflow_Network",
+        "System_Bus_Interface"
+      ],
+      "parent": null,
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/cgra_fft_accelerator.sv",
+      "language": "systemverilog"
+    },
+    "CGRA_Array": {
+      "hier_level": 1,
+      "description": "Implements the 2\u00d74 grid of general-purpose execution elements (GPEs) interconnected through a reconfigurable interconnect (GIB). Each GPE performs arithmetic operations (ADD, SUB, MUL, PASS) and supports up to 8-cycle delay for pipelined FFT stages.",
+      "children": [
+        "GPE",
+        "GIB"
+      ],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/cgra_array.sv",
+      "language": "systemverilog"
+    },
+    "GPE": {
+      "hier_level": 2,
+      "description": "Performs arithmetic and dataflow operations as configured. Each GPE includes an ALU supporting ADD/SUB/MUL, a local register file, and configurable delay elements for timing alignment in FFT butterfly computations.",
+      "children": [],
+      "parent": "CGRA_Array",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/gpe.sv",
+      "language": "systemverilog"
+    },
+    "GIB": {
+      "hier_level": 2,
+      "description": "Provides flexible routing between GPEs and I/O ports. Supports diagonal and directional connectivity with one track per channel and configurable registered paths to balance timing across FFT data paths.",
+      "children": [],
+      "parent": "CGRA_Array",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/gib.sv",
+      "language": "systemverilog"
+    },
+    "Scratchpad_Memory_System": {
+      "hier_level": 1,
+      "description": "Composed of 8 banks of 64-bit wide local memories used to store intermediate FFT data and twiddle factors. Each bank is independently addressable with configurable size and stride for efficient butterfly data access.",
+      "children": [
+        "Scratchpad_Bank"
+      ],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/scratchpad_memory_system.sv",
+      "language": "systemverilog"
+    },
+    "Scratchpad_Bank": {
+      "hier_level": 2,
+      "description": "Implements a single memory bank with 2^11 entries, supporting concurrent read/write operations. Used for buffering real and imaginary FFT components between computation stages.",
+      "children": [],
+      "parent": "Scratchpad_Memory_System",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/scratchpad_bank.sv",
+      "language": "systemverilog"
+    },
+    "DMA_Controller": {
+      "hier_level": 1,
+      "description": "Handles data transfers between system memory and the CGRA scratchpad. Supports burst transfers (up to 2^5 beats) and multiple outstanding requests to sustain FFT data streaming throughput.",
+      "children": [],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/dma_controller.sv",
+      "language": "systemverilog"
+    },
+    "Configuration_Controller": {
+      "hier_level": 1,
+      "description": "Manages configuration loading for GPEs, GIBs, and memory banks. Uses a 32-bit configuration data width and 8-bit address space to program operation modes, routing, and timing parameters.",
+      "children": [],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/configuration_controller.sv",
+      "language": "systemverilog"
+    },
+    "FFT_Dataflow_Network": {
+      "hier_level": 1,
+      "description": "Implements the logical mapping of the FFT butterfly graph onto the CGRA fabric. Coordinates input loading (XR/XI), butterfly computation (ADD/SUB/MUL), and output storage (YR/YI) according to the provided DFG.",
+      "children": [
+        "Butterfly_Stage"
+      ],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/fft_dataflow_network.sv",
+      "language": "systemverilog"
+    },
+    "Butterfly_Stage": {
+      "hier_level": 2,
+      "description": "Represents one FFT butterfly computation unit performing complex additions and subtractions between input pairs. Mapped across multiple GPEs to exploit spatial parallelism.",
+      "children": [],
+      "parent": "FFT_Dataflow_Network",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/butterfly_stage.sv",
+      "language": "systemverilog"
+    },
+    "System_Bus_Interface": {
+      "hier_level": 1,
+      "description": "Connects the CGRA subsystem to the host processor via a 64-bit system bus. Provides configuration, control, and data movement pathways for FFT kernel execution and result retrieval.",
+      "children": [],
+      "parent": "CGRA_FFT_Accelerator",
+      "filename": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch/system_bus_interface.sv",
+      "language": "systemverilog"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "cgra_num_row" : 3,
+  "cgra_num_colum" : 8,
+  "cgra_gpes" : [ [ {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "UDIV" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "SHL", "LSHR", "ASHR", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  } ], [ {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "UDIV" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "SHL", "LSHR", "ASHR", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  } ], [ {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "UDIV" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  }, {
+    "max_delay" : 12,
+    "operations" : [ "PASS", "ADD", "SUB", "SHL", "LSHR", "ASHR", "ACC" ]
+  }, {
+    "max_delay" : 4,
+    "operations" : [ "PASS", "ADD", "SUB", "MUL" ]
+  } ] ],
+  "ls_stream_queue_depth" : 0,
+  "spad_bank_lg_size" : 13,
+  "cgra_lg_max_ii" : 1,
+  "cgra_lg_max_lat" : 6,
+  "spad_data_width" : 128,
+  "spad_addr_num" : 9,
+  "cgra_data_width" : 32,
+  "cgra_gpe_in_from_dir" : [ 4, 5, 7, 6 ],
+  "cgra_gpe_out_to_dir" : [ 4, 5, 7, 6 ],
+  "system_bus_beat_bits" : 128,
+  "cgra_gib_connect_flexibility" : [ 2, 2, 4 ],
+  "dma_lg_max_burst_size" : 6,
+  "cgra_cfg_data_width" : 32,
+  "rs_exe_queue_depth" : 4,
+  "dumpOperationSet" : true,
+  "rs_store_queue_depth" : 6,
+  "cgra_cfg_addr_width" : 10,
+  "cgra_gib_track_reged_mode" : 1,
+  "spad_cfg_lg_size" : 11,
+  "id_width" : 6,
+  "cgra_gib_diag_iopin_connect" : true,
+  "cgra_gpe_operations" : [ "PASS", "ADD", "SUB", "MUL", "UDIV", "SHL", "LSHR", "ASHR", "ACC" ],
+  "dma_num_req_in_flight" : 8,
+  "cgra_cfg_blk_offset" : 2,
+  "tlb_is_shared" : true,
+  "cgra_gib_num_track" : 1,
+  "cgra_cfg_addr_width_align" : 16,
+  "dumpADG" : true,
+  "rs_load_queue_depth" : 12,
+  "cgra_lg_max_cycles" : 12,
+  "spad_num_banks" : 16,
+  "cgra_lg_max_stride" : 13,
+  "cgra_gpe_max_delay" : 11
+}

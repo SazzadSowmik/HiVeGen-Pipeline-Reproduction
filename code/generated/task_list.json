@@ -1,0 +1,18 @@
+{
+  "top": "CGRA_FFT_Accelerator",
+  "task_order": [
+    "CGRA_FFT_Accelerator",
+    "CGRA_Array",
+    "GPE",
+    "GIB",
+    "Scratchpad_Memory_System",
+    "Scratchpad_Bank",
+    "DMA_Controller",
+    "Configuration_Controller",
+    "FFT_Dataflow_Network",
+    "Butterfly_Stage",
+    "System_Bus_Interface"
+  ],
+  "count": 11,
+  "sketch_dir": "/Users/sazzadsowmik/Documents/Personal/dr_hao_zheng/HiVeGen/code/generated/sketch"
+}

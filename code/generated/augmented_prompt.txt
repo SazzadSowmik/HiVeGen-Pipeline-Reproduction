@@ -1,0 +1,43 @@
+Top module (Hier 0): CGRA_FFT_Accelerator  
+Description:  
+A 2×4 coarse-grained reconfigurable array designed to accelerate FFT computations. It integrates arithmetic processing elements, interconnect fabric, local scratchpad memory, and DMA interfaces for high-throughput streaming of complex data. The design maps FFT butterfly operations across the array for parallel execution of add/sub/mul stages.
+
+Submodule (Hier 1): CGRA_Array  
+Description:  
+Implements the 2×4 grid of general-purpose execution elements (GPEs) interconnected through a reconfigurable interconnect (GIB). Each GPE performs arithmetic operations (ADD, SUB, MUL, PASS) and supports up to 8-cycle delay for pipelined FFT stages.
+
+Submodule (Hier 2): GPE (General Processing Element)  
+Description:  
+Performs arithmetic and dataflow operations as configured. Each GPE includes an ALU supporting ADD/SUB/MUL, a local register file, and configurable delay elements for timing alignment in FFT butterfly computations.
+
+Submodule (Hier 2): GIB (Global Interconnect Block)  
+Description:  
+Provides flexible routing between GPEs and I/O ports. Supports diagonal and directional connectivity with one track per channel and configurable registered paths to balance timing across FFT data paths.
+
+Submodule (Hier 1): Scratchpad_Memory_System  
+Description:  
+Composed of 8 banks of 64-bit wide local memories used to store intermediate FFT data and twiddle factors. Each bank is independently addressable with configurable size and stride for efficient butterfly data access.
+
+Submodule (Hier 2): Scratchpad_Bank  
+Description:  
+Implements a single memory bank with 2^11 entries, supporting concurrent read/write operations. Used for buffering real and imaginary FFT components between computation stages.
+
+Submodule (Hier 1): DMA_Controller  
+Description:  
+Handles data transfers between system memory and the CGRA scratchpad. Supports burst transfers (up to 2^5 beats) and multiple outstanding requests to sustain FFT data streaming throughput.
+
+Submodule (Hier 1): Configuration_Controller  
+Description:  
+Manages configuration loading for GPEs, GIBs, and memory banks. Uses a 32-bit configuration data width and 8-bit address space to program operation modes, routing, and timing parameters.
+
+Submodule (Hier 1): FFT_Dataflow_Network  
+Description:  
+Implements the logical mapping of the FFT butterfly graph onto the CGRA fabric. Coordinates input loading (XR/XI), butterfly computation (ADD/SUB/MUL), and output storage (YR/YI) according to the provided DFG.
+
+Submodule (Hier 2): Butterfly_Stage  
+Description:  
+Represents one FFT butterfly computation unit performing complex additions and subtractions between input pairs. Mapped across multiple GPEs to exploit spatial parallelism.
+
+Submodule (Hier 1): System_Bus_Interface  
+Description:  
+Connects the CGRA subsystem to the host processor via a 64-bit system bus. Provides configuration, control, and data movement pathways for FFT kernel execution and result retrieval.

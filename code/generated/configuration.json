@@ -1,0 +1,128 @@
+{
+  "cgra_num_row": 2,
+  "cgra_num_colum": 4,
+  "cgra_gpes": [
+    [
+      {
+        "max_delay": 8,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      },
+      {
+        "max_delay": 6,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      },
+      {
+        "max_delay": 8,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB",
+          "MUL"
+        ]
+      },
+      {
+        "max_delay": 6,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      }
+    ],
+    [
+      {
+        "max_delay": 8,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      },
+      {
+        "max_delay": 6,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      },
+      {
+        "max_delay": 8,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB",
+          "MUL"
+        ]
+      },
+      {
+        "max_delay": 6,
+        "operations": [
+          "PASS",
+          "ADD",
+          "SUB"
+        ]
+      }
+    ]
+  ],
+  "ls_stream_queue_depth": 0,
+  "spad_bank_lg_size": 11,
+  "cgra_lg_max_ii": 1,
+  "cgra_lg_max_lat": 4,
+  "spad_data_width": 64,
+  "spad_addr_num": 8,
+  "cgra_data_width": 32,
+  "cgra_gpe_in_from_dir": [
+    4,
+    5,
+    7,
+    6
+  ],
+  "cgra_gpe_out_to_dir": [
+    4,
+    5,
+    7,
+    6
+  ],
+  "system_bus_beat_bits": 64,
+  "cgra_gib_connect_flexibility": [
+    2,
+    2,
+    2
+  ],
+  "dma_lg_max_burst_size": 5,
+  "cgra_cfg_data_width": 32,
+  "rs_exe_queue_depth": 3,
+  "dumpOperationSet": true,
+  "rs_store_queue_depth": 4,
+  "cgra_cfg_addr_width": 8,
+  "cgra_gib_track_reged_mode": 1,
+  "spad_cfg_lg_size": 10,
+  "id_width": 5,
+  "cgra_gib_diag_iopin_connect": true,
+  "cgra_gpe_operations": [
+    "PASS",
+    "ADD",
+    "SUB",
+    "MUL"
+  ],
+  "dma_num_req_in_flight": 4,
+  "cgra_cfg_blk_offset": 2,
+  "tlb_is_shared": true,
+  "cgra_gib_num_track": 1,
+  "cgra_cfg_addr_width_align": 8,
+  "dumpADG": true,
+  "rs_load_queue_depth": 8,
+  "cgra_lg_max_cycles": 8,
+  "spad_num_banks": 8,
+  "cgra_lg_max_stride": 10,
+  "cgra_gpe_max_delay": 8
+}

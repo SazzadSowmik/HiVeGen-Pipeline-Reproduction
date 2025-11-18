@@ -116,6 +116,7 @@ def module_generator_llm(
         "DO NOT send me same code again if I ask you to fix errors even if It's a direct match from Code library.\n"
         "- MUST REUSE the module name and port names as specified on the submodule to make the next module in the hierarchy.\n"
         "- We'll put all the submodule in a single file later. So, just reuse the previous submodule's name without any worries.\n"
+        "- Use the submodules on the hier module, instead of add new logic to the hier module.\n"
     ).strip()
 
     print(f"[LLM Prompt] Generating module '{module_name}' via LLM...")
